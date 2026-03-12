@@ -17,7 +17,7 @@ const listFiles = async (mcpClient, dir, filterByExtension = false) => {
     const result = await callMcpTool(mcpClient, "fs_read", { path: dir, mode: "list" });
     if (!result.entries) return [];
     
-    const getName = (e) => e.name || e.path?.split("/").pop();
+    const getName = (e) => e.name || e.path?.split(/[/\\]/).pop();
     
     return result.entries
       .filter(e => e.kind === "file" || e.type === "file")
